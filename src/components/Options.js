@@ -1,22 +1,26 @@
 import React, { setState } from 'react';
 
-function Options({answer, mc, mainCallback, myCallback}) {
-    console.log('render options');
+function Option({answer, value, i, mainCallback}) {
+    return(
+        <div 
+            className="option"
+            key={i}
+            onClick={ () => {
+                mainCallback(value, answer)                        
+            }}>
+            {value}
+        </div>
+    )
+}
+
+function Options({answer, mc, mainCallback}) {
+    console.log('options is rendering');
+    console.log("answer is:" + answer);
+
     return (
         <div className="options">
             {mc.map(
-                (value) => {
-                    return(
-                    <div 
-                        className="option"
-                        onClick={ () => {
-                            mainCallback(value, answer);
-                            myCallback(value + ' was clicked');
-                        }}>
-                        {value}
-                    </div>
-                    )
-                }
+                (value, i) => <Option answer={answer} value={value} key={i} mainCallback={mainCallback}/>
             )}
         </div>
     )

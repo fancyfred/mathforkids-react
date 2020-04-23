@@ -1,14 +1,16 @@
 import React from 'react';
 
-
-
-function Answer({isCorrect}) {
-  console.log(isCorrect);
+function Answer({showAnswer, isCorrect}) {
   const message = isCorrect ? 'Well done!' : 'Nope! Try again.';
       return (
-        <div className={isCorrect ? 'correct': 'wrong'}>
+        showAnswer ? 
+        <div className="answer">
+          <div className={isCorrect ? 'correct': 'wrong'}>
             {message}
+          </div>
         </div>
+        :
+        <div></div>
       )
 }
 
