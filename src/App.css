@@ -28,7 +28,14 @@ a {
 }
 
 .header-buttons button {
-  flex: 1;
+  flex: 50;
+}
+.header-buttons #settings {
+  padding-top: 8px;
+  background: orange;
+  padding-left: 4px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .equation {
@@ -86,4 +93,7 @@ a {
   display: none;
 }
 
-  
+.settings-options-area {
+  font-size: 4em;
+  margin: 20px 0px;
+}

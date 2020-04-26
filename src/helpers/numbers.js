@@ -1,5 +1,7 @@
 /* getting the multichoices: */
 
+// const numOptions = 5;
+
 const getRandomNum = (min, max) => {
     return Math.floor(Math.random() * (max - min)) + min;
 }
@@ -34,25 +36,24 @@ const createArrayOfRandumNumbers = (size, min, max, reject=-100, noRepeat=true, 
     return numbers;
 }
 
-const createRandomChoices = (answer) => {
-    const numOptions = 3;
-    let choices = createArrayOfRandumNumbers(numOptions - 1, 0, 20, answer);
-    let randomIndex = createArrayOfRandumNumbers(1, 0, numOptions);
+const createRandomChoices = (answer, numberOfOptions) => {
+    let choices = createArrayOfRandumNumbers(numberOfOptions - 1, 0, answer * 2, answer);
+    let randomIndex = createArrayOfRandumNumbers(1, 0, numberOfOptions);
     choices.splice(randomIndex, 0, answer);
     return choices;
 }
 
-const getOptions = (eqType, answer) => {
+const getOptions = (eqType, answer, numberOfOptions=3) => {
     let multiChoices = [];
     switch(eqType) {
         case 'addition':
-            multiChoices = createRandomChoices(answer);
+            multiChoices = createRandomChoices(answer, numberOfOptions);
             break;
         case 'subtraction':
-            multiChoices = createRandomChoices(answer);
+            multiChoices = createRandomChoices(answer, numberOfOptions);
             break;
         case 'multiplication':
-            multiChoices = createRandomChoices(answer);
+            multiChoices = createRandomChoices(answer, numberOfOptions);
             break;
         default:
             break;

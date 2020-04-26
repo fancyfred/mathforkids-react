@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Header({doMath}) {
+function Header({doMath, settingsToggleCallback}) {
     const sections = [
         "Addition",
         "Multiplication",
@@ -11,14 +11,20 @@ function Header({doMath}) {
         {
             sections.map((s, i) =>  {
                 return (
-                <button key={i}
-                    className="ui big green button" 
-                    onClick={ () => doMath(s.toLowerCase())}>
-                    {s}
-                </button>)
+                        <button key={i}
+                            className="ui big green button" 
+                            onClick={ () => doMath(s.toLowerCase())}>
+                            {s}
+                        </button>
+                )
             })
         }
-        </div>
+            <div 
+                id="settings" 
+                className=""
+                onClick={ () => settingsToggleCallback()}>
+                    <i className="cog icon big"></i></div>
+            </div>
         )
 }
 

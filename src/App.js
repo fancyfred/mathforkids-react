@@ -3,7 +3,11 @@ import './App.css';
 import Equation from './components/Equation';
 import Answer from './components/Answer';
 import Header from './components/Header';
+import Settings from './components/Settings';
 import helpers from './helpers/numbers';
+
+const correctResultAudio = new Audio('audio/Quiz-correct-sound-with-applause.mp3');
+const incorrectResultAudio = new Audio('audio/jinkies-awoo.mp3');
 
 const generateNewNumbers = (equationLength = 2) => {
   let equationNumbers = [];
@@ -37,7 +41,10 @@ const getAnswer = (eqType, numbers) => {
 
 function App() {
   console.log('App is rendering');
-  const [equationLength, setEquationLenth] = useState(3);
+  const [showSettings, setShowSettings] = useState(false);
+  const [equationLength, setEquationLength] = useState(3);
+  const [numberOfOptions, setNumberOfOptions] = useState(3);
+
   const [numbers, setNumbers] = useState(generateNewNumbers(equationLength));
   const [equationType, setEquationType] = useState("addition");
   const [showAnswer, setShowAnswer] = useState(null);
@@ -47,11 +54,27 @@ function App() {
 
   const check = (value, answer) => {
     if (value === answer) {
-        console.log('right');
         setShowAnswer(true);
         setIsCorrect(true);
+        if(correctResultAudio.paused||!correctResultAudio.currentTime) {
+          incorrectResultAudio.pause();
+          incorrectResultAudio.currentTime = 0;
+          correctResultAudio.currentTime = 0;
+          correctResultAudio.play();
+        } else {
+          correctResultAudio.currentTime = 0;
+          correctResultAudio.play();
+        }
     } else {
-        console.log('wrong');
+      if(incorrectResultAudio.paused||!incorrectResultAudio.currentTime) {
+        correctResultAudio.pause();
+        correctResultAudio.currentTime = 0;
+        incorrectResultAudio.currentTime = 0;
+        incorrectResultAudio.play();
+      } else {
+        incorrectResultAudio.currentTime = 0;
+        incorrectResultAudio.play();
+      }
         setShowAnswer(true);
         setIsCorrect(false);
     }
@@ -77,7 +100,7 @@ function App() {
     // I seem to have to create a const and add it to payload
     const numbers2 = generateNewNumbers(equationLength);
     const answer2 = getAnswer(eqType, numbers2);
-    const mc2 = helpers.getOptions(eqType, answer2)
+    const mc2 = helpers.getOptions(eqType, answer2, numberOfOptions)
     setPayload({
       equationType: eqType,
       numbers: numbers2,
@@ -91,9 +114,26 @@ function App() {
     generateNewEquation(equationType);
   }
 
+  const settingsToggleCallback = () => {
+    console.log(showSettings);
+    setShowSettings(!showSettings);
+  }
+
   return (
+    showSettings 
+    ? 
+      <div className="App">
+        <Header doMath={generateNewEquation} settingsToggleCallback={settingsToggleCallback}/>
+        <Settings 
+          equationLength={equationLength} 
+          updateEquationLength={setEquationLength}
+          numberOfOptions={numberOfOptions}
+          setNumberOfOptions={setNumberOfOptions}
+        />
+      </div>
+    :
     <div className="App">
-      <Header doMath={generateNewEquation}/>
+      <Header doMath={generateNewEquation} settingsToggleCallback={settingsToggleCallback}/>
       <Equation payload={payload}/>
       <button className="ui massive blue button" 
         onClick={ () => again()}>
@@ -101,7 +141,7 @@ function App() {
       </button>
       <Answer showAnswer={showAnswer} isCorrect={isCorrect}/>
     </div>
-  );
+  )
 }
 
 export default App;

@@ -8,6 +8,15 @@ function Answer({showAnswer, isCorrect}) {
           <div className={isCorrect ? 'correct': 'wrong'}>
             {message}
           </div>
+          <div className={isCorrect ? '' : 'hide'}>
+              <img src="images/materok.jpg"/>
+            </div>
+          <div className={isCorrect ? 'hide' : ''}>
+
+            <img src="images/mater.jpg"/>
+            
+          </div>
+          
         </div>
         :
         <div></div>
