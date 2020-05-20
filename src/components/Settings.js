@@ -17,18 +17,18 @@ function Settings(props) {
         setNumberOfOptions
     } = props;
     const equationLengths = [
-        {key:2, value:2, text:2},
-        {key:3, value:3, text:3},
-        {key:4, value:4, text:4},
-        {key:5, value:5, text:5},
-        {key:6, value:6, text:6}
+        {key:0, value:2, text:2},
+        {key:1, value:3, text:3},
+        {key:2, value:4, text:4},
+        {key:3, value:5, text:5},
+        {key:4, value:6, text:6}
     ]
     const possibleNumbersOfOptions = [
-        {key:2, value:2, text:2},
-        {key:3, value:3, text:3},
-        {key:4, value:4, text:4},
-        {key:5, value:5, text:5},
-        {key:6, value:6, text:6}
+        {key:0, value:2, text:2},
+        {key:1, value:3, text:3},
+        {key:2, value:4, text:4},
+        {key:3, value:5, text:5},
+        {key:4, value:6, text:6}
     ];
 
     return (
